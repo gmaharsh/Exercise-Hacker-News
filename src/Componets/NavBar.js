@@ -5,7 +5,6 @@ import styled from 'styled-components'
 function NavBar() {
 
     const location = useLocation();
-    console.log(location.pathname);
     return (
         <Navbar>
             <h1>Hacker News</h1>

@@ -7,7 +7,6 @@ import styled from 'styled-components'
 function GetHistory() {
 
     const newsList = useSelector(selectNews)
-    console.log(newsList)
     return (
         <History>
             <h1>Previously Searched News</h1>
