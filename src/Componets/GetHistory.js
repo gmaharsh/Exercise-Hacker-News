@@ -10,7 +10,6 @@ function GetHistory() {
     return (
         <History>
             <h1>Previously Searched News</h1>
-            <p>If you click on any of the item, You could see news on search page</p>
             <PreviousNews>
                 {newsList && newsList.map(news => (
                     <News>
