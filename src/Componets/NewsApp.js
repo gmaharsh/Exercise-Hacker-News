@@ -22,7 +22,6 @@ function NewsApp() {
             fetch(`http://hn.algolia.com/api/v1/search?query=${search}&restrictSearchableAttributes=url`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data.hits)
                     setData(data.hits)
                     setSearch("")
             })
@@ -63,6 +62,7 @@ function NewsApp() {
                         <h4>{d.title}</h4>
                         <Extra>
                             <p>Created On:-{(d.created_at).split("T")[0]}</p>
+                            {/* Safe link to the own website *//* eslint-disable-next-line react/jsx-no-target-blank */}
                             <a href={d.url} target="_blank">Learn More</a>
                         </Extra>
                     </Data>
