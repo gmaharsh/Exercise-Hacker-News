@@ -1,6 +1,10 @@
 import { Badge, Button } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components'
+import { addtoHistory } from '../features/newsSlice';
+import moment from 'moment';
+
 
 
 function NewsApp() {
@@ -8,10 +12,13 @@ function NewsApp() {
     const [search, setSearch] = useState("")
     const [data, setData] = useState([])
 
+    const dispatch = useDispatch()
+
     function searchNews() {
-        if (search == "") {
+        if (search === "") {
             alert("Please Type What News you want for")
         } else {
+            dispatch(addtoHistory({name : search, time:moment().calendar()}))
             fetch(`http://hn.algolia.com/api/v1/search?query=${search}&restrictSearchableAttributes=url`)
                 .then(res => res.json())
                 .then(data => {
@@ -23,6 +30,7 @@ function NewsApp() {
     }
 
     const searchTopNews = (news) => {
+        dispatch(addtoHistory({name : news, time:moment().calendar()}))
         fetch(`http://hn.algolia.com/api/v1/search?query=${news}&restrictSearchableAttributes=url`)
                 .then(res => res.json())
                 .then(data => {
@@ -34,7 +42,6 @@ function NewsApp() {
 
     return (
         <News>
-            <h1>Hacker News App</h1>
             <NewsSearch>
                 <input
                     type="text"
@@ -73,7 +80,8 @@ const News = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
-    height:100vh;
+    height:90vh;
+    margin-top:3rem;
 `;
 
 const NewsSearch = styled.div`
@@ -114,20 +122,22 @@ const NewsData = styled.div`
     border:1px solid lightgray;
     overflow-y:scroll;
     border-radius:20px;
-    // box-shadow:25px 25px 0px 0px #E1EEFF;
 `;
 
 const Data = styled.div`
     background:lightgray;
     justify-content:flex-start;
     margin-bottom:1rem;
-    padding:0.5rem
+    padding:0.5rem;
+    border-radius:10px;
+    font-family: 'Roboto', sans-serif;
 `;
 
 const Extra = styled.div`
     display:flex;
     align-items:center;
     justify-content:space-between;
+    margin-top:1rem;
     @media(max-width:700px){
         flex-direction:column;
     }
